@@ -11,9 +11,13 @@ import config from '@/config'
 const { homeName } = config
 
 Vue.use(Router)
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? '/cart-demo'
+  : ''
 const router = new Router({
   routes,
-  mode: 'history'
+  mode: 'history',
+  base: BASE_URL,
 })
 const LOGIN_PAGE_NAME = 'login'
 const REGISTER_PAGE_NAME = 'register'
