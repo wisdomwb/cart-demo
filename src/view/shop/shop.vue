@@ -25,7 +25,7 @@
       <Card style="margin-bottom:20px;">
         <div style="min-height: 200px;">
           <div class="goods">
-            <h3>商品列表</h3>
+            <h3>Cart List</h3>
             <div class="list">
               <Table
                 border
@@ -40,7 +40,7 @@
       <Card>
         <div style="min-height: 200px;">
           <div class="cart">
-            <h3>我的购物车</h3>
+            <h3>My Cart</h3>
             <div class="list">
               <Table
                 border
@@ -78,23 +78,27 @@ export default {
     return {
       columns: [
         {
-          title: '名称',
+          title: 'name',
           key: 'name',
         },
         {
-          title: '单价',
+          title: 'city',
+          key: 'city'
+        },
+        {
+          title: 'price',
           key: 'price'
         },
         {
-          title: '颜色',
-          key: 'color'
+          title: 'number',
+          key: 'number'
         },
         {
-          title: '内存',
-          key: 'remain'
+          title: 'picture',
+          key: 'picture'
         },
         {
-          title: '操作',
+          title: 'action',
           key: 'action',
           width: 150,
           align: 'center',
@@ -123,22 +127,22 @@ export default {
       ],
       columns1: [
         {
-          title: '名称',
-          key: 'name',
+          title: 'name',
+          key: 'goodsName',
         },
         {
-          title: '单价',
+          title: 'price',
           key: 'price'
         },
         {
-          title: '数量',
+          title: 'num',
           key: 'goodsNum'
         },
-        {
+        /* {
           title: '金额',
           key: 'goodsAmount'
-        }, {
-          title: '编辑',
+        }, */ {
+          title: 'action',
           key: 'goodsNum',
           width: 150,
           align: 'center',
@@ -168,7 +172,7 @@ export default {
                   click: () => {
                     this.modValue1 = params.row.total
                     this.modIndex1 = params.index
-                    this.remove1(params.row.departmentName)
+                    this.remove1(params.row.id)
                   }
                 }
               }, '删除')
@@ -176,12 +180,8 @@ export default {
           }
         },
       ],
-      tableData: [{ name: 'xxx鼠标', price: 88, color: 'green' }, { name: 'xxx鼠标1', price: 98, color: 'red' }],
-      tableData1: [{
-        name: 'xxx鼠标', price: 88, goodsNum: 1, goodsAmount: 88
-      }, {
-        name: 'xxx鼠标1', price: 98, goodsNum: 2, goodsAmount: 186
-      }],
+      tableData: [],
+      tableData1: [],
       showModTotalModal: false,
       modValue1: 0
     }
@@ -216,12 +216,11 @@ export default {
     okMod1() {
       console.log('修改总数量')
     },
-    remove1(index) {
+    remove1(id) {
       this.$Modal.confirm({
         title: '确认删除该商品？',
         content: '',
         onOk: () => {
-          const { id } = this.tableData1[this.modIndex]
           this.$api.shop.deleteGoods({ id }).then(res => {
             this.$Message.success('删除成功')
             this.listGoods()

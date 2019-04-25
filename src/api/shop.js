@@ -17,13 +17,13 @@ const shop = {
   },
   // 添加到购物车
   insetGoods(params) {
-    return axios.get(`${base.sq}/department/insetGoods`, {
+    return axios.get(`${base.sq}/cart/insetGoods`, {
       params
     })
   },
   // 从购物车删除
   deleteGoods(params) {
-    return axios.get(`${base.sq}/department/deleteGoods`, {
+    return axios.get(`${base.sq}/cart/deleteGoods`, {
       params
     })
   },
